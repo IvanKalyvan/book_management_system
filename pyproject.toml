@@ -1,0 +1,5 @@
+[tool.pytest.ini_options]
+pytohnpath = [
+    ".", "app"
+]
+asyncio_mode="auto"

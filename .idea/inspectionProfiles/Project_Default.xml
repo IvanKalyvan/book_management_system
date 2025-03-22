@@ -1,0 +1,20 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="back.modeltree.templatetags.modeltree_tag.modeltree" />
+          <option value="bot_utils.pg_functions.connect.config" />
+          <option value="bot_utils.pipeline.s3_writer.config" />
+          <option value="bot_utils.pipeline.s3_writer.*" />
+          <option value="bot_utils.pg_functions.pg_register.config" />
+          <option value="bot_utils.data_cheker.checking_candidate_in_database.*" />
+          <option value="crm_project_vacancy.settings" />
+          <option value="crm_project_vacancy.crm.models.custom_auth" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
