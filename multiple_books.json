@@ -1,0 +1,28 @@
+[
+  {
+    "title": "The Great Gatsby",
+    "author": {
+      "author_firstName": "F. Scott",
+      "author_lastName": "Fitzgerald"
+    },
+    "genre": "Fiction",
+    "pages": 180,
+    "publisher": "Scribner",
+    "published_years": 1925,
+    "language": "English",
+    "isbn": "9780743273565"
+  },
+  {
+    "title": "To Kill a Mockingbird",
+    "author": {
+      "author_firstName": "Harper",
+      "author_lastName": "Lee"
+    },
+    "genre": "Fiction",
+    "pages": 281,
+    "publisher": "J.B. Lippincott & Co.",
+    "published_years": 1960,
+    "language": "English",
+    "isbn": "9780061120084"
+  }
+]

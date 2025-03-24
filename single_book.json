@@ -1,0 +1,13 @@
+{
+  "title": "The Great Gatsby",
+  "author": {
+    "author_firstName": "F. Scott",
+    "author_lastName": "Fitzgerald"
+  },
+  "genre": "Fiction",
+  "pages": 180,
+  "publisher": "Scribner",
+  "published_years": 1925,
+  "language": "English",
+  "isbn": "9780743273565"
+}
