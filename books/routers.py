@@ -29,7 +29,7 @@ async def create_book_record(book_data: BookBase, session: AsyncSession = Depend
     return await create_book(session, user, book_data)
 
 @books.get("/search")
-async def get_books(
+async def get_books_with_params(
     search_data: BookSearch = Depends(),
     session: AsyncSession = Depends(get_session),
     limit: int = Query(5, ge=1, le=100),
