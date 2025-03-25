@@ -2,10 +2,11 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:13
+    image: postgres:17.4
     container_name: postgres_db
     environment:
       POSTGRES_DB: ${DB_NAME}
+      POSTGRES_HOST: ${DB_HOST}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
@@ -18,7 +19,7 @@ services:
       - .env
 
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:9.1
     container_name: pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
@@ -30,38 +31,53 @@ services:
     depends_on:
       - db
 
-  test:
-    image: python:3.13-slim
-    container_name: test_runner
-    command: >
-      bash -c "
-        pip install -r /app/requirements.txt &&
-        pytest /app/tests &&
-        alembic upgrade head"
-    volumes:
-      - ./app:/app
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-    networks:
-      - app_network
-    depends_on:
-      - db
+  # test:
+  #   image: python:3.13-slim
+  #   container_name: test_runner
+  #   command: >
+  #     bash -c "
+  #       pip install -r /app/requirements.txt &&
+  #       pytest /app/tests &&
+  #       alembic upgrade head"
+  #   volumes:
+  #     - ./app:/app
+  #     - ./requirements.txt:/app/requirements.txt
+  #     - ./tests:/app/tests
+  #     - ./config:/app/config
+  #     - ./auth:/app/auth
+  #     - ./books:/app/books
+  #     - ./app:/app/app
+  #   environment:
+  #     DB_HOST: db
+  #     DB_PORT: ${DB_PORT}
+  #     DB_NAME: test_books_system
+  #     DB_USER: ${DB_USER}
+  #     DB_PASSWORD: ${DB_PASSWORD}
+  #     PYTHONPATH: /app
+  #   networks:
+  #     - app_network
+  #   depends_on:
+  #     - db
 
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: app
+    command: >
+      bash -c "
+        apt-get update && apt-get install -y wait-for-it &&
+        wait-for-it db:5432 --timeout=10 --strict &&
+        pip install -r /app/requirements.txt &&
+        alembic upgrade head &&
+        uvicorn app.main:app --host 0.0.0.0 --port 8000"
     environment:
       DB_HOST: db
       DB_PORT: 5432
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+      PYTHONPATH: /app
     ports:
       - "8000:8000"
     depends_on:
